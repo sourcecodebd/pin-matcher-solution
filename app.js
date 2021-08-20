@@ -1,3 +1,6 @@
+const actionLeft = document.getElementById('action-left');
+let actionLeftText = parseInt(actionLeft.innerText);
+
 function getPin() {
     const pin = Math.round(Math.random() * 10000);
     const pinString = pin + '';
@@ -17,14 +20,18 @@ function generatePin() {
 document.getElementById('key-pad').addEventListener('click', function (e) {
     const number = e.target.innerText;
     const calcInput = document.getElementById('typed-numbers');
+    const calcInputValue = calcInput.value;
     if (isNaN(number)) {
         console.log(number);
         if (number == 'C') {
             calcInput.value = '';
         }
         else if (number == '<') {
-            const calcInputValue = calcInput.value;
-            calcInput.value = calcInputValue.substr(0, calcInputValue.length - 1);
+            // calcInput.value = calcInputValue.substr(0, calcInputValue.length - 1);
+            calcInput.value = calcInputValue.slice(0, -1);
+        }
+        else if (number == 'Submit') {
+            calcInput.value = '';
         }
     }
     else {
@@ -44,18 +51,39 @@ function verifyPin() {
     const notifyCorrect = document.getElementById('notify-correct-pin');
     const notifyWrong = document.getElementById('notify-wrong-pin');
 
-    if (pin == typedNumbers) {
-        notifyCorrect.style.display = 'block';
+    if (typedNumbers == '') {
+        const notifyEmpty = document.getElementById('notify-empty-pin');
+        notifyEmpty.style.display = 'block';
         setTimeout(function () {
-            notifyCorrect.style.display = 'none';
+            notifyEmpty.style.display = '';
         }, 5000);
-        notifyWrong.style.display = 'none';
     }
     else {
-        notifyWrong.style.display = 'block';
-        setTimeout(function () {
-            notifyWrong.style.display = '';
-        }, 5000);
-        notifyCorrect.style.display = '';
+        if (pin == typedNumbers) {
+            notifyCorrect.style.display = 'block';
+            setTimeout(function () {
+                notifyCorrect.style.display = 'none';
+            }, 5000);
+            notifyWrong.style.display = 'none';
+        }
+        else {
+            if (actionLeftText > 0) {
+                actionLeftText--;
+                actionLeft.innerText = actionLeftText;
+                notifyWrong.style.display = 'block';
+                setTimeout(function () {
+                    notifyWrong.style.display = '';
+                }, 5000);
+                notifyCorrect.style.display = '';
+            }
+            else {
+                notifyWrong.innerText = '❌ You have reached trying limit';
+                notifyWrong.style.display = 'block';
+                setTimeout(function () {
+                    notifyWrong.style.display = '';
+                }, 5000);
+            }
+        }
     }
+
 }

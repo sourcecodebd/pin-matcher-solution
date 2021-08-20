@@ -54,7 +54,7 @@
                             </div>
                             <div>
                                 <button type="submit" onclick="verifyPin()" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <p class="action-left"><span id="action-left">3</span> try left</p>
                             </div>
                         </div>
                     </div>
@@ -63,6 +63,7 @@
             <div class="notify-section">
                 <p id="notify-wrong-pin" class="notify">❌ Pin Didn't Match, Please try again</p>
                 <p id="notify-correct-pin" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+                <p id="notify-empty-pin" class="notify">❌ Please Enter your Input!</p>
             </div>
         </div>
         <script src="app.js"></script>
