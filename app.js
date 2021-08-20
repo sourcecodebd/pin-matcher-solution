@@ -1,5 +1,8 @@
 const actionLeft = document.getElementById('action-left');
 let actionLeftText = parseInt(actionLeft.innerText);
+const notifyCorrect = document.getElementById('notify-correct-pin');
+const notifyWrong = document.getElementById('notify-wrong-pin');
+const notifyEmpty = document.getElementById('notify-empty-pin');
 
 function getPin() {
     const pin = Math.round(Math.random() * 10000);
@@ -48,11 +51,8 @@ document.getElementById('key-pad').addEventListener('click', function (e) {
 function verifyPin() {
     const pin = document.getElementById('display-pin').value;
     const typedNumbers = document.getElementById('typed-numbers').value;
-    const notifyCorrect = document.getElementById('notify-correct-pin');
-    const notifyWrong = document.getElementById('notify-wrong-pin');
 
     if (typedNumbers == '') {
-        const notifyEmpty = document.getElementById('notify-empty-pin');
         notifyEmpty.style.display = 'block';
         setTimeout(function () {
             notifyEmpty.style.display = '';
@@ -77,7 +77,7 @@ function verifyPin() {
                 notifyCorrect.style.display = '';
             }
             else {
-                notifyWrong.innerText = '❌ You have reached trying limit';
+                notifyWrong.innerText = reachedLimit() + 'You have reached trying limit';
                 notifyWrong.style.display = 'block';
                 setTimeout(function () {
                     notifyWrong.style.display = '';
@@ -87,3 +87,9 @@ function verifyPin() {
     }
 
 }
+
+function reachedLimit() {
+    notifyWrong.innerText = '❌';
+    return notifyWrong.innerText;
+}
+
